@@ -1,0 +1,11 @@
+{% extends "layout.html"%}
+
+{%block content%}
+    <h2>Minimo: {{lista.minimo}}</h2>
+    <h2>Maximo: {{lista.maximo}}</h2>
+    <h2>Promedio: {{lista.promedio}}</h2>
+    <h2>Repeticiones:</h2>
+    {% for item in lista.listaRep %}
+    <h3>{{item}}</h3>
+    {% endfor %}
+{%endblock%}

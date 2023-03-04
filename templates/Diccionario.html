@@ -1,0 +1,56 @@
+{% extends "layout.html"%}
+
+    {%block content%}
+    <div class="col-xs-6">
+        {%from "_macros.html" import render_field%}
+        <h2> Guardar nueva palabra </h2>
+        <form action="/guardar" method="post" novalidate>
+        <div class="form-group">
+        </div>
+            {{render_field(form.palabraEsp, 'Palabra Español', value="")}}
+            {{render_field(form.palabraIng, 'Palabra Ingles', value="")}}
+        {% if estado != '' %}
+            {% if estado == 'Palabra Guardada' %}
+            <h6 style="color: green;">
+                {{estado}}
+            </h6>
+            {% else %}
+            <h6 style="color: red;">
+                {{estado}}
+            </h6>
+            {% endif %}
+            
+        {% endif %}
+        <input type="submit" value="Guardar">
+        </form>
+        <hr/>
+        <h2> Buscar palabra </h2>
+        <form action="/buscar" method="post" novalidate>
+            <div class="form-group">
+            </div>
+            <label>Idioma: </label>
+            {% if form2.idioma.errors%}
+                <ul>
+                    {% for error in form2.idioma.errors%}
+                        <li style="color: red;">
+                        {{error}}
+                        </li>
+                    {% endfor %}
+                </ul>    
+            {% endif %}
+            {% for subfield in form2.idioma %}
+                <tr>
+                    <td>{{ subfield }}{{ subfield.label }}</td>
+                </tr>
+            {% endfor %}  
+            
+            {{render_field(form2.palabra, 'Palabra', value="")}}
+            <input type="submit" value="Buscar">
+            {% if result != '' %}
+                <h3>
+                    {{result}}
+                </h3>
+            {% endif %}
+            </form>
+    </div>
+    {%endblock%}

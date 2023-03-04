@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/bootstrap/css/bootstrap-responsive.min.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            body {
+                background-color: #699baf;
+            }
+        </style>
+        <div class="navbar">
+            <div class="navbar-inner">
+              <ul class="nav">
+                <a class="brand" href="/Resistencia" style="color:#024a66;">Calculadora de resistencias</a>
+              </ul>
+            </div>
+          </div>
+        <div class="container">
+            {%with messages = get_flashed_messages()%}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {%endwith%}
+            {%block content%}
+                
+            {%endblock%}
+        </div>
+    </body>
+</html>
+

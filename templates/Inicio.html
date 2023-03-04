@@ -1,0 +1,15 @@
+{% extends "layoutResistencia.html"%}
+
+    {%block content%}
+        {%from "_macros.html" import render_field%}
+        <div class="col-xs-6">
+            <form action="" method="post" novalidate>
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <div class="form-group">
+            </div>
+            {{render_field(form.Nombre, 'Username')}}
+            {{render_field(form.motivo, 'Motivo de uso de la calculadora', Placeholder='Opcional')}}
+            <input type="submit" value="Registrar">
+            </form>
+        </div>
+    {%endblock%}

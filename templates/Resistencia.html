@@ -1,0 +1,47 @@
+{% extends "layoutResistencia.html"%}
+
+    {%block content%}
+        <div>
+           <!--
+            <h1>{{nombre}} Bienvenido a la calculadora de resistencias</h1><br>
+            -->
+            <img src="../static/img/resistencia.jpg" class="img-rounded">
+        </div>
+        {%from "_macros.html" import render_field%}
+            <form action="" method="post" novalidate>
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <div class="form-group">
+                <br><br>
+                {{render_field(form.banda1, 'Banda 1')}}
+                {{render_field(form.banda2, 'Banda 2')}}
+                {{render_field(form.banda3, 'Banda 3')}}
+                {{render_field(form.tolerancia, 'Elije la tolerancia')}}
+            <input class="btn" type="submit" value="Calcular valor">
+            </div>
+            </form>
+
+            <table border="2" class="table">
+                <tr>
+                  <th>Col Banda 1</th>
+                  <th>Col Banda 2</th>
+                  <th>Col Banda 3</th>
+                  <th>Col Banda 4</th>
+                  <th>Valor </th>
+                  <th>Minimo </th>
+                  <th>Maximo</th>
+                </tr>
+                <tr>
+                    {% if res != '{}' %}
+                    <td name="b1" bgcolor="{{color.b1}}">{{res.b1}}</td>
+                    <td name="b2" bgcolor="{{color.b2}}">{{res.b2}}</td>
+                    <td name="b3" bgcolor="{{color.b3}}">{{res.b3}}</td>
+                    <td name="b4" bgcolor="{{color.b4}}">{{res.b4}}</td>
+                    <td name="valor">{{res.val}}</td>
+                    <td name="mini">{{res.mini}}</td>
+                    <td name="maxi">{{res.maxi}}</td>
+                    {% endif %}
+                </tr>
+              </table>
+              
+        
+    {%endblock%}

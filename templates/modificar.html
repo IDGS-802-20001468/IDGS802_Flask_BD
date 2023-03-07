@@ -4,7 +4,7 @@
             {%from "_macros.html" import render_field%}
             <div class="container">
                 <div class="row">
-                    <form action="/" method="post" name="sent" id="form1">
+                    <form action="/modificar" method="post" name="sent" id="form1">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 float-label-form-group controls">
                                 {{render_field(form.nombre, 'Nombre', class='form-control')}}
@@ -21,8 +21,9 @@
                             </div>
                         </div>
                         <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
-                        <input type="submit" id="reg_alum" name="registra" value="Registrar"/>
-
+                        <input class="btn btn-danger" type="submit" id="modificar" name="modificar" value="Modificar"/>
+                        <a href="ABCompleto" class="btn btn-success" ><i class="icon-action-undo icon-white"></i>Cancelar</a>
+                        
                     </form>
                 </div>
             </div>

@@ -1,0 +1,59 @@
+{% extends "layout.html"%}
+
+    {%block content%}
+            {%from "_macros.html" import render_field%}
+            <div class="container">
+                <div class="row">
+                    <form action="/ABCompleto" method="post" name="sent" id="form1">
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 float-label-form-group controls">
+                                {{render_field(form.nombre, 'Nombre', class='form-control')}}
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 float-label-form-group controls">
+                                {{render_field(form.apellidos,'Apellidos', class='form-control')}}
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 float-label-form-group controls">
+                                {{render_field(form.email, 'Email', class='form-control')}}
+                            </div>
+                        </div>
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
+                        <input class="btn btn-danger" type="submit" id="modificar" name="modificar" value="Modificar"/>
+                        <a href="ABCompleto" class="btn btn-success" ><i class="icon-action-undo icon-white"></i>Cancelar</a>
+
+                    </form>
+                    <h3>Alumnos IDGS</h3>
+                    <table>
+                        <thead>
+                            <tr class="tr-head">
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Correo</th>
+                                <th>Eliminar</th>
+                                <th>Modificar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for alum in alumno %}
+                            <tr>
+                                <th>{{alum.nombre}}</th>
+                                <th>{{alum.apellidos}}</th>
+                                <th>{{alum.email}}</th>
+                                <th><a href="eliminar.html?id={{alum.id}}" class="btn btn-danger">
+                                    <i class="icon-remove icon-white"></i>Eliminar
+                                </a></th>
+                                <th><a href="modificar.html?id={{alum.id}}" class="btn btn-warning">
+                                    <i class="icon-pencil icon-white"></i>Modificar
+                                </a></th>
+                            </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>           
+                </div>
+            </div>
+            
+        </div>
+    {%endblock%}

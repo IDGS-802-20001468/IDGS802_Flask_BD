@@ -14,7 +14,7 @@ crsf = CSRFProtect()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    create_form = forms.UseForms(request.form)
+    create_form = forms.UseForm(request.form)
     if request.method == 'POST':
         alumn = Alumnos(nombre = create_form.nombre.data,
                         apellidos =  create_form.apellidos.data,
@@ -22,7 +22,9 @@ def index():
                         )
         db.session.add(alumn)
         db.session.commit()
+        return redirect(url_for('ABCompleto'))
     return render_template("index.html", form = create_form)
+
 
 @app.route("/modificar", methods=["GET", "POST"])
 def modificar():
@@ -44,7 +46,28 @@ def modificar():
         db.session.commit()
 
         return redirect(url_for('ABCompleto'))
-    return render_template("modoficar.html", form = create_form)
+    return render_template("modificar.html", form = create_form)
+
+@app.route("/eliminar", methods=["GET", "POST"])
+def eliminar():
+    create_form = forms.UseForms(request.form)
+    if request.method == 'GET':
+        id = request.args.get('id')
+        alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        create_form.id.data = request.args.get('id')
+        create_form.nombre.data = alum1.nombre
+        create_form.apellidos.data = alum1.apellidos
+        create_form.email.data = alum1.email
+    if request.method == 'POST':
+        id = create_form.id.data
+        alum = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        alum.nombre  = create_form.nombre.data
+        alum.apellidos  = create_form.apellidos.data
+        alum.email  = create_form.email.data
+        db.session.delete(alum)
+        db.session.commit()
+        return redirect(url_for('ABCompleto'))
+    return render_template("eliminar.html", form = create_form)
     
 @app.route("/ABCompleto", methods=["GET", "POST"])
 def abc():
